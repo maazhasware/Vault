@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="csharpcorner.Views.FullView"
+             BackgroundImage="NewBackground.png"
+             Title="Image Preview">
+    <ContentPage.Content>
+        <StackLayout Margin="20,20,20,20">
+            <StackLayout>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                    <Frame OutlineColor="Red">
+                        <Image x:Name="ImageView" BackgroundColor="DarkGray" HeightRequest="300" WidthRequest="300" Source="{Binding ImageView}" ></Image>
+                    </Frame>
+                    <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnDownload" WidthRequest="150" Text="Download" Command="{Binding BtnDownloadCommand}" IsEnabled="{Binding BtnDownload}"/>
+                        <Button x:Name="btnDelete" WidthRequest="150" Text="Delete" Command="{Binding BtnDeleteCommand}" IsEnabled="{Binding BtnDelete}"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

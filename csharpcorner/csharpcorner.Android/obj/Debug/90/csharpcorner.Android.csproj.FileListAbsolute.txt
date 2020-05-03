@@ -1,0 +1,6 @@
+C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\MonoAndroid,Version=v9.0.AssemblyAttributes.cs
+C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\csharpcorner.Android.nuget.stamp
+C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\_VerifyXamarinAndroidSupportVersions.stamp
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\MonoAndroid,Version=v9.0.AssemblyAttributes.cs
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\csharpcorner.Android.nuget.stamp
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\_VerifyXamarinAndroidSupportVersions.stamp

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="csharpcorner.Views.WelcomePage"
+             BackgroundImage="NewBackground.png"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout Margin="20,35,20,20">
+            <StackLayout>
+
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                    <Label Margin="0,0,0,10" Text="Dashboard" FontAttributes="Bold" FontSize="Large" TextColor="Gray" HorizontalTextAlignment="Center" ></Label>
+                    
+                    <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnUploadImage" WidthRequest="200" Text="Upload Image" Command="{Binding UploadImageCommand}"/>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnUploadVideo" WidthRequest="200" Text="Upload Video" Command="{Binding UploadVideoCommand}"/>
+                    </StackLayout>
+                    <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnViewAllFiles" WidthRequest="200" Text="View All Files" Command="{Binding ViewAllFilesCommand}"/>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="Logout" WidthRequest="200"  Text="Logout " Command="{Binding LogoutCommand}" />
+                    </StackLayout>
+                    
+                </StackLayout>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
