@@ -10,9 +10,9 @@
             <StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                     <Frame OutlineColor="Red">
-                        <forms:VideoView HeightRequest="300" WidthRequest="300"  />
+                        <!--<forms:VideoView HeightRequest="300" WidthRequest="300"/> -->
                     </Frame>
-                    <Button x:Name="PlayStopButtonText" Text="Play" Clicked="PlayStopButton" TextColor="BlueViolet"/>
+                    <!--<Button x:Name="PlayStopButtonText" Text="Play" Clicked="PlayStopButton" TextColor="BlueViolet"/> -->
                     <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                         <Button x:Name="btnPickVideo" WidthRequest="150" Text="Pick Video" Command="{Binding BtnPickVideoClicked}" IsEnabled="{Binding BtnPickVideo}"/>

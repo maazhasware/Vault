@@ -104,7 +104,7 @@ namespace csharpcorner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error: " + ex.Message, "Ok");
+                    await App.Current.MainPage.DisplayAlert("Encryption Error", "Error: " + ex.Message, "Ok");
                 }
                 finally
                 {
@@ -114,7 +114,7 @@ namespace csharpcorner.ViewModels
             }
             catch
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Error uploading image, please try again", "Ok");
+                await App.Current.MainPage.DisplayAlert("Encryption Failed", "Error uploading image, please try again", "Ok");
             }
         }
 
@@ -185,9 +185,9 @@ namespace csharpcorner.ViewModels
 
                     FileStream filestream = System.IO.File.OpenRead(outputPath);
 
-                    await FirebaseHelper.UploadFile(filestream, Path.GetFileName(_file.Path), user.UserID);
-                    var downloadurl = await FirebaseHelper.GetFile(Path.GetFileName(_file.Path), user.UserID);
-                    await FirebaseHelper.UploadURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user.UserID);
+                    await FirebaseHelper.UploadImage(filestream, Path.GetFileName(_file.Path), user.UserID);
+                    var downloadurl = await FirebaseHelper.GetImage(Path.GetFileName(_file.Path), user.UserID);
+                    await FirebaseHelper.UploadImageURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user.UserID);
 
                     //delete encrypted file we create on device
                     System.IO.File.Delete(outputPath);

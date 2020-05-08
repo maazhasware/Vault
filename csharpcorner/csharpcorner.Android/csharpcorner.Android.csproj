@@ -95,6 +95,9 @@
     <PackageReference Include="Xamarin.Android.Support.Transition">
       <Version>28.0.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.v7.Palette">
       <Version>28.0.0.3</Version>
     </PackageReference>
@@ -114,7 +117,6 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\drawable\Background.jpg" />
     <AndroidResource Include="Resources\drawable\LogoIcon.png" />
     <AndroidResource Include="Resources\drawable\NewBackground.png" />

@@ -20,13 +20,13 @@ namespace csharpcorner.ViewModels
         private string _outputPath = string.Empty;
         private ImageSource _imageView = string.Empty;
         private string _email;
-        private DownloadURL _downloadUrl;
+        private ImageObject _imageObject;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public FullViewVM(DownloadURL downloadUrl, string email)
+        public FullViewVM(ImageObject imageObject, string email)
         {
             this._email = email;
-            this._downloadUrl = downloadUrl;
+            this._imageObject = imageObject;
             Download();
         }
 
@@ -118,7 +118,7 @@ namespace csharpcorner.ViewModels
 
             //added bit
             string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _downloadUrl.FileName);
+            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _imageObject.FileName);
             _outputPath = outputPath1;
 
             //to show pics in gallery
@@ -135,7 +135,7 @@ namespace csharpcorner.ViewModels
         {
             //output path for encrypted file
             string galleryPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string filename = _downloadUrl.FileName;
+            string filename = _imageObject.FileName;
             //remove file extension
             int index = filename.LastIndexOf(".");
             if (index > 0)
@@ -146,12 +146,12 @@ namespace csharpcorner.ViewModels
             //download encyrpted file
             using (var client = new WebClient())
             {
-                client.DownloadFile(_downloadUrl.Url, outputPath);
+                client.DownloadFile(_imageObject.Url, outputPath);
             }
 
             //output path for decrypted file
             string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _downloadUrl.FileName);
+            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _imageObject.FileName);
 
             //decrypt and download file
             FileDecrypt(outputPath, outputPath1);
@@ -186,8 +186,8 @@ namespace csharpcorner.ViewModels
                 BtnDelete = false;
                 BtnDownload = false;
                 ActivityIndicator = true;
-                await FirebaseHelper.DeleteFile(_downloadUrl.FileName, _downloadUrl.Userid);
-                await FirebaseHelper.DeleteDownloadURLObject(_downloadUrl.FileName, _downloadUrl.Userid);
+                await FirebaseHelper.DeleteImage(_imageObject.FileName, _imageObject.Userid);
+                await FirebaseHelper.DeleteImageObject(_imageObject.FileName, _imageObject.Userid);
                 ActivityIndicator= false;
                 //Message centre sends a message to ListViewPage telling it to refresh the list view so that the deleted file isn't shown in list view anymore
                 MessagingCenter.Send<FullViewVM>(this, "RefreshPage");

@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
+using MediaManager;
 
 namespace csharpcorner.Droid
 {
@@ -19,7 +20,7 @@ namespace csharpcorner.Droid
             ToolbarResource = Resource.Layout.Toolbar;
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
-            VideoViewRenderer.Init();
+            //CrossMediaManager.Current.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

@@ -22,6 +22,8 @@ namespace csharpcorner.ViewModels
         //connect app with firebase storage
         public static FirebaseStorage firebaseStorage = new FirebaseStorage("vault-cf38b.appspot.com");
 
+        //***USER RELATED METHODS BELOW***
+
         //Read All    
         public static async Task<List<User>> GetAllUser()
         {
@@ -130,178 +132,16 @@ namespace csharpcorner.ViewModels
             }
         }
 
-        //Upload file to firebase storage
-        public static async Task<string> UploadFile(FileStream fileStream, string fileName, Guid userid)
-        {
-            try
-            {
-                var fileAlreadyExists = await GetFile(fileName, userid);
-                if (fileAlreadyExists == null)
-                {
-                    try
-                    {
-                        var imageurl = await firebaseStorage
-                        .Child("Media")
-                        .Child(fileName + userid)
-                        .PutAsync(fileStream);
-                        return imageurl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
-                else
-                {
-                    //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
-                    try
-                    {
-                        var imageurl = await firebaseStorage
-                        .Child("Media")
-                        .Child(fileName + Guid.NewGuid() + userid)
-                        .PutAsync(fileStream);
-                        return imageurl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error:{e}");
-                return null;
-            } 
-        }
-
-        //upload uploaded file's download url for easy retrieval later
-
-        public static async Task<bool> UploadURL(string fileName, string downloadurl, Guid userID)
-        {
-            try
-            {
-                await firebaseDatabase
-                .Child("DownloadURLs")
-                .PostAsync(new DownloadURL()
-                {
-                    FileName = fileName,
-                    Url = downloadurl,
-                    Userid = userID
-                });
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error:{e}");
-                return false;
-            }
-        }
-
-        // Get a file using file name
-        public static async Task<string> GetFile(string fileName, Guid userid)
-        {
-            try
-            {
-                return await firebaseStorage
-                .Child("Media")
-                .Child(fileName + userid)
-                .GetDownloadUrlAsync();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error:{e}");
-                return null;
-            }
-        }
-
-        //Get user's files download urls only
-        public static async Task<List<string>> GetUsersFilesDownloadURL(Guid userid)
-        {
-            var allFiles = await GetAllFiles();
-            List<string> usersFiles = new List<string>();
-            foreach (var a in allFiles)
-            {
-                if (a.Userid == userid)
-                {
-                    usersFiles.Add(a.Url);
-                }
-            }
-            return usersFiles;
-        }
-
-        //Get user's files downloadurl objects
-        public static async Task<List<DownloadURL>> GetUsersFilesDownloadURLObject(Guid userid)
-        {
-            var allFilesDownloadURLObjects = await GetAllFiles();
-            List<DownloadURL> usersFilesDownloadsURLObjects = new List<DownloadURL>();
-            foreach (var a in allFilesDownloadURLObjects)
-            {
-                if (a.Userid == userid)
-                {
-                    usersFilesDownloadsURLObjects.Add(a);
-                }
-            }
-            return usersFilesDownloadsURLObjects;
-        }
-
-        //Get all files
-        public static async Task<List<DownloadURL>> GetAllFiles()
-        {
-            try
-            {
-                var listOfDownloadUrls = (await firebaseDatabase
-                .Child("DownloadURLs")
-                .OnceAsync<DownloadURL>()).Select(item =>
-                new DownloadURL
-                {
-                    FileName = item.Object.FileName,
-                    Url = item.Object.Url,
-                    Userid = item.Object.Userid
-                }).ToList();
-                return listOfDownloadUrls;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error:{e}");
-                return null;
-            }
-        }
-
-        // Delete file
-        public static async Task DeleteFile(string fileName, Guid userid)
-        {
-            await firebaseStorage
-                 .Child("Media")
-                 .Child(fileName + userid)
-                 .DeleteAsync();
-
-        }
-
-        //Delete downloadUrlObject
-        public static async Task DeleteDownloadURLObject(string fileName, Guid userid)
-        {
-            try
-            {
-                var toDeleteObject = (await firebaseDatabase
-                .Child("DownloadURLs")
-                .OnceAsync<DownloadURL>()).Where(a => a.Object.FileName == fileName && a.Object.Userid == userid).FirstOrDefault();
-                await firebaseDatabase.Child("DownloadURLs").Child(toDeleteObject.Key).DeleteAsync();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error:{e}");
-            }
-
-        }
-      
-
-
 
         //Update     
-        public static async Task<bool> UpdateUser(string email, string password)
+        public static async Task<bool> UpdateUser(
+            Guid userID,
+            string firstName,
+            string surname,
+            string email,
+            string password,
+            byte[] key,
+            byte[] salt)
         {
             try
             {
@@ -311,7 +151,7 @@ namespace csharpcorner.ViewModels
                 await firebaseDatabase
                 .Child("Users")
                 .Child(toUpdateUser.Key)
-                .PutAsync(new User() { Email = email, Password = password });
+                .PutAsync(new User() { UserID = userID, FirstName = firstName, Surname = surname, Email = email, Password = password, Key = key, Salt = salt });
                 return true;
             }
             catch (Exception e)
@@ -338,6 +178,278 @@ namespace csharpcorner.ViewModels
                 return false;
             }
         }
+
+        //***MEDIA RELATED METHODS BELOW***
+
+
+        //Upload file to firebase storage
+        public static async Task<string> UploadImage(FileStream fileStream, string fileName, Guid userid)
+        {
+            try
+            {
+                var fileAlreadyExists = await GetImage(fileName, userid);
+                if (fileAlreadyExists == null)
+                {
+                    try
+                    {
+                        var imageurl = await firebaseStorage
+                        .Child("Images")
+                        .Child(fileName + userid)
+                        .PutAsync(fileStream);
+                        return imageurl;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Error:{e}");
+                        return null;
+                    }
+                }
+                else
+                {
+                    //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
+                    try
+                    {
+                        var imageurl = await firebaseStorage
+                        .Child("Images")
+                        .Child(fileName + Guid.NewGuid() + userid)
+                        .PutAsync(fileStream);
+                        return imageurl;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Error:{e}");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            } 
+        }
+
+        //upload video
+        public static async Task<string> UploadVideo(FileStream fileStream, string fileName, Guid userid)
+        {
+            try
+            {
+                var fileAlreadyExists = await GetVideo(fileName, userid);
+                if (fileAlreadyExists == null)
+                {
+                    try
+                    {
+                        var videourl = await firebaseStorage
+                        .Child("Videos")
+                        .Child(fileName + userid)
+                        .PutAsync(fileStream);
+                        return videourl;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Error:{e}");
+                        return null;
+                    }
+                }
+                else
+                {
+                    //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
+                    try
+                    {
+                        var imageurl = await firebaseStorage
+                        .Child("Videos")
+                        .Child(fileName + Guid.NewGuid() + userid)
+                        .PutAsync(fileStream);
+                        return imageurl;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Error:{e}");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            }
+        }
+
+
+
+        //upload uploaded images download url for easy retrieval later
+        public static async Task<bool> UploadImageURL(string fileName, string downloadurl, Guid userID)
+        {
+            try
+            {
+                await firebaseDatabase
+                .Child("ImageURLs")
+                .PostAsync(new ImageObject()
+                {
+                    FileName = fileName,
+                    Url = downloadurl,
+                    Userid = userID
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return false;
+            }
+        }
+
+        //upload uploaded videos download url for easy retrieval later
+        public static async Task<bool> UploadVideoURL(string fileName, string downloadurl, Guid userID)
+        {
+            try
+            {
+                await firebaseDatabase
+                .Child("VideoURLs")
+                .PostAsync(new ImageObject()
+                {
+                    FileName = fileName,
+                    Url = downloadurl,
+                    Userid = userID
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return false;
+            }
+        }
+
+        // Get a file using file name
+        public static async Task<string> GetImage(string fileName, Guid userid)
+        {
+            try
+            {
+                return await firebaseStorage
+                .Child("Images")
+                .Child(fileName + userid)
+                .GetDownloadUrlAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            }
+        }
+
+        public static async Task<string> GetVideo(string fileName, Guid userid)
+        {
+            try
+            {
+                return await firebaseStorage
+                .Child("Videos")
+                .Child(fileName + userid)
+                .GetDownloadUrlAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            }
+        }
+
+        //Get user's files downloadurl objects
+        public static async Task<List<ImageObject>> GetUsersImageObject(Guid userid)
+        {
+            var allFilesDownloadURLObjects = await GetAllImageObjects();
+            List<ImageObject> usersImageObjects = new List<ImageObject>();
+            foreach (var a in allFilesDownloadURLObjects)
+            {
+                if (a.Userid == userid)
+                {
+                    usersImageObjects.Add(a);
+                }
+            }
+            return usersImageObjects;
+        }
+
+        //Get all image objects
+        public static async Task<List<ImageObject>> GetAllImageObjects()
+        {
+            try
+            {
+                var listOfAllImageObjects = (await firebaseDatabase
+                .Child("ImageURLs")
+                .OnceAsync<ImageObject>()).Select(item =>
+                new ImageObject
+                {
+                    FileName = item.Object.FileName,
+                    Url = item.Object.Url,
+                    Userid = item.Object.Userid
+                }).ToList();
+                return listOfAllImageObjects;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            }
+        }
+
+        // Delete image
+        public static async Task DeleteImage(string fileName, Guid userid)
+        {
+            await firebaseStorage
+                 .Child("Images")
+                 .Child(fileName + userid)
+                 .DeleteAsync();
+
+        }
+
+        // Delete video
+        public static async Task DeleteVideo(string fileName, Guid userid)
+        {
+            await firebaseStorage
+                 .Child("Videos")
+                 .Child(fileName + userid)
+                 .DeleteAsync();
+
+        }
+
+        //Delete Image Object
+        public static async Task DeleteImageObject(string fileName, Guid userid)
+        {
+            try
+            {
+                var toDeleteObject = (await firebaseDatabase
+                .Child("ImageURLs")
+                .OnceAsync<ImageObject>()).Where(a => a.Object.FileName == fileName && a.Object.Userid == userid).FirstOrDefault();
+                await firebaseDatabase.Child("ImageURLs").Child(toDeleteObject.Key).DeleteAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+            }
+
+        }
+
+        //Delete Video Object
+        public static async Task DeleteVideoObject(string fileName, Guid userid)
+        {
+            try
+            {
+                var toDeleteObject = (await firebaseDatabase
+                .Child("VideoURLs")
+                .OnceAsync<ImageObject>()).Where(a => a.Object.FileName == fileName && a.Object.Userid == userid).FirstOrDefault();
+                await firebaseDatabase.Child("VideoURLs").Child(toDeleteObject.Key).DeleteAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+            }
+
+        }
+
+
+
+        
 
     }
 }

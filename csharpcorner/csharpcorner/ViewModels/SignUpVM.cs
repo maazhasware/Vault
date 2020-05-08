@@ -120,8 +120,8 @@ namespace csharpcorner.ViewModels
                 }
                 else
                 {
-                    bool t = IsValidPassword(Password);
-                    if (t == false)
+                    bool PasswordValid = IsValidPassword(Password);
+                    if (PasswordValid == false)
                     {
                         await App.Current.MainPage.DisplayAlert("Invalid Password", "Please enter a password in line with requirements", "OK");
 
@@ -143,7 +143,7 @@ namespace csharpcorner.ViewModels
                         {
                             await App.Current.MainPage.DisplayAlert("SignUp Success", "", "Ok");
                             //await App.Current.MainPage.Navigation.PushAsync(new WelcomePage(Email, Password));
-                            App.Current.MainPage = new WelcomePage(Email);
+                            App.Current.MainPage = new NavigationPage( new WelcomePage(Email));
                         }
                     }
                 }

@@ -9,7 +9,7 @@
             <StackLayout>
                 <ListView 
                       x:Name="ListViewImages"
-                      ItemsSource="{Binding DownloadUrls}"
+                      ItemsSource="{Binding ImageObjects}"
                       SelectionMode="None"
                       IsPullToRefreshEnabled="True"
                       RefreshCommand="{Binding RefreshCommand}"

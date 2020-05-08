@@ -22,7 +22,7 @@ namespace csharpcorner.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FullView : ContentPage
     {
-        public FullView(DownloadURL downloadUrl, string email)
+        public FullView(ImageObject downloadUrl, string email)
         {
             InitializeComponent();
             BindingContext = new FullViewVM(downloadUrl, email);

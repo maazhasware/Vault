@@ -18,7 +18,13 @@
                         <Button x:Name="btnUploadVideo" WidthRequest="200" Text="Upload Video" Command="{Binding UploadVideoCommand}"/>
                     </StackLayout>
                     <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Button x:Name="btnViewAllFiles" WidthRequest="200" Text="View All Files" Command="{Binding ViewAllFilesCommand}"/>
+                        <Button x:Name="btnViewAllImages" WidthRequest="200" Text="View All Images" Command="{Binding ViewAllImagesCommand}"/>
+                    </StackLayout>
+                    <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnViewAllVideos" WidthRequest="200" Text="View All Videos" Command="{Binding ViewAllVideosCommand}"/>
+                    </StackLayout>
+                    <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Button x:Name="btnSettings" WidthRequest="200" Text="Settings" Command="{Binding SettingsCommand}"/>
                     </StackLayout>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                         <Button x:Name="Logout" WidthRequest="200"  Text="Logout " Command="{Binding LogoutCommand}" />

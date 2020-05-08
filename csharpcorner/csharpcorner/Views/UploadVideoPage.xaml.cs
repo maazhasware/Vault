@@ -17,20 +17,20 @@ namespace csharpcorner.Views
             BindingContext = new UploadVideoVM(email);
         }
 
-        private void PlayStopButton(object sender, EventArgs e)
-        {
-            if (PlayStopButtonText.Text == "Play")
-            {
-                CrossMediaManager.Current.Play(videoUrl, MediaFileType.Video);
+        //private void PlayStopButton(object sender, EventArgs e)
+        //{
+        //    if (PlayStopButtonText.Text == "Play")
+        //    {
+        //        CrossMediaManager.Current.Play(videoUrl);
 
-                PlayStopButtonText.Text = "Stop";
-            }
-            else if (PlayStopButtonText.Text == "Stop")
-            {
-                CrossMediaManager.Current.Play(videoUrl, MediaFileType.Video);
+        //        PlayStopButtonText.Text = "Stop";
+        //    }
+        //    else if (PlayStopButtonText.Text == "Stop")
+        //    {
+        //        CrossMediaManager.Current.Play(videoUrl);
 
-                PlayStopButtonText.Text = "Play";
-            }
-        }
+        //        PlayStopButtonText.Text = "Play";
+        //    }
+        //}
     }
 }

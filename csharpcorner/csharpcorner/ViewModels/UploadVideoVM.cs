@@ -67,7 +67,7 @@ namespace csharpcorner.ViewModels
                 FileStream fsCrypt = new FileStream(outputPath, FileMode.Create);
                 //Set Rijndael symmetric encryption algorithm
                 RijndaelManaged AES = new RijndaelManaged();
-                AES.KeySize = 256;
+                AES.KeySize = 128;//set to 128 bit for videos to make faster
                 AES.BlockSize = 128;
                 AES.Padding = PaddingMode.PKCS7;
                 var key = new Rfc2898DeriveBytes(user.Key, user.Salt, 50000);
@@ -93,7 +93,7 @@ namespace csharpcorner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error: " + ex.Message, "Ok");
+                    await App.Current.MainPage.DisplayAlert("Encryption Error", "Error encrypting video: " + ex.Message + " Please try again", "Ok");
                 }
                 finally
                 {
@@ -101,10 +101,33 @@ namespace csharpcorner.ViewModels
                     fsCrypt.Close();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Error uploading image, please try again", "Ok");
+                await App.Current.MainPage.DisplayAlert("Encryption Failed", "Error encrypting video:" + e.Message + "Please try again", "Ok");
             }
+
+            string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMovies).AbsolutePath;
+            string outputPath1 = Path.Combine(galleryPath1 + "/Vault", Path.GetFileName(_file.Path) + ".aes");
+
+            var user1 = await FirebaseHelper.GetUser(_email);
+
+            FileStream filestream = System.IO.File.OpenRead(outputPath1);
+
+            await FirebaseHelper.UploadVideo(filestream, Path.GetFileName(_file.Path), user1.UserID);
+            var downloadurl = await FirebaseHelper.GetVideo(Path.GetFileName(_file.Path), user1.UserID);
+            await FirebaseHelper.UploadVideoURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user1.UserID);
+
+            //delete encrypted file we create on device
+            System.IO.File.Delete(outputPath1);
+
+            //stop activity indicator
+            ActivityIndicator = false;
+
+            await App.Current.MainPage.DisplayAlert("Upload Success", "Video has been uploaded", "OK");
+
+            //re-enable PickImage button
+            BtnPickVideo = true;
+
         }
 
 
@@ -126,7 +149,7 @@ namespace csharpcorner.ViewModels
                 //set video preview here
 
                 //set Upload Video button enabled
-
+                BtnUploadVideo = true;
 
             }
             catch(Exception ex)
@@ -145,7 +168,40 @@ namespace csharpcorner.ViewModels
 
         private async void UploadVideoClicked()
         {
-            
+            try
+            {
+                ActivityIndicator = true;
+
+                BtnUploadVideo = false;
+                BtnPickVideo = false;
+
+                //string galleryPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
+                //string outputPath = Path.Combine(galleryPath + "/Vault", Path.GetFileName(_file.Path) + ".aes");
+                FileEncrypt(_file.Path);
+
+                //var user = await FirebaseHelper.GetUser(_email);
+
+                //FileStream filestream = System.IO.File.OpenRead(outputPath);
+
+                //await FirebaseHelper.UploadFile(filestream, Path.GetFileName(_file.Path), user.UserID);
+                //var downloadurl = await FirebaseHelper.GetFile(Path.GetFileName(_file.Path), user.UserID);
+                //await FirebaseHelper.UploadURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user.UserID);
+
+                ////delete encrypted file we create on device
+                //System.IO.File.Delete(outputPath);
+
+                ////stop activity indicator
+                //ActivityIndicator = false;
+
+                //await App.Current.MainPage.DisplayAlert("Upload Success", "Video has been uploaded", "OK");
+
+                ////re-enable PickImage button
+                //BtnPickVideo = true;
+            }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Upload Failed", "Please try again", "Ok");
+            }
         }
 
 

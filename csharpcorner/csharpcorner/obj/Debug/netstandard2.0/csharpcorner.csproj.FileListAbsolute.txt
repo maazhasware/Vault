@@ -10,6 +10,13 @@ C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner\obj\Debug\net
 C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.csproj.CoreCompileInputs.cache
 C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.AssemblyInfoInputs.cache
 C:\Users\maazh\source\repos\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.AssemblyInfo.cs
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\csharpcorner.deps.json
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\csharpcorner.dll
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\csharpcorner.pdb
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\Mono.Android.dll
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\Mono.Android.pdb
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\Mono.Android.xml
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.csprojAssemblyReference.cache
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\Views\FullViewPage.xaml.g.cs
@@ -22,4 +29,9 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\Views\Wel
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.csproj.CoreCompileInputs.cache
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.AssemblyInfoInputs.cache
 C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.AssemblyInfo.cs
-C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.csprojAssemblyReference.cache
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.csproj.CopyComplete
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.dll
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\csharpcorner.pdb
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\Views\ChangePasswordPage.xaml.g.cs
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\obj\Debug\netstandard2.0\Views\SettingsPage.xaml.g.cs

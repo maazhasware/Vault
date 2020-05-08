@@ -26,12 +26,12 @@ namespace csharpcorner.Views
 
         void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            DownloadURL selectedItem = e.SelectedItem as DownloadURL;
+            ImageObject selectedItem = e.SelectedItem as ImageObject;
         }
 
         void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
         {
-            DownloadURL tappedItem = e.Item as DownloadURL;
+            ImageObject tappedItem = e.Item as ImageObject;
             App.Current.MainPage.Navigation.PushAsync(new FullView(tappedItem, localEmail));
         }
 

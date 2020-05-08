@@ -49,19 +49,46 @@ namespace csharpcorner.ViewModels
             await App.Current.MainPage.Navigation.PushAsync(new UploadVideoPage(_email));
         }
 
-        //view all files command
-        public Command ViewAllFilesCommand
+        //view all images command
+        public Command ViewAllImagesCommand
         {
             get
             {
-                return new Command(ViewAllFiles);
+                return new Command(ViewAllImages);
             }
         }
 
-        private async void ViewAllFiles()
+        private async void ViewAllImages()
         {
-            User user = await FirebaseHelper.GetUser(_email);
             await App.Current.MainPage.Navigation.PushAsync(new ListViewPage(_email));
+        }
+
+        //view all videos command
+        public Command ViewAlVideosCommand
+        {
+            get
+            {
+                return new Command(ViewAllVideos);
+            }
+        }
+
+        private async void ViewAllVideos()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new ListViewPage(_email)); //TODO: create listview for videos page
+        }
+
+        //settings command
+        public Command SettingsCommand
+        {
+            get
+            {
+                return new Command(Settings);
+            }
+        }
+
+        private async void Settings()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new SettingsPage(_email));
         }
 
 
