@@ -199,6 +199,20 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
+      "Octane.Xam.VideoPlayer/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.0.0.497661"
+        },
+        "compile": {
+          "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.Android.dll": {},
+          "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.Android.dll": {},
+          "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.dll": {}
+        }
+      },
       "Plugin.CurrentActivity/2.1.0.4": {
         "type": "package",
         "frameworkAssemblies": [
@@ -1597,6 +1611,7 @@
           "FirebaseAdmin": "1.9.1",
           "FirebaseDatabase.net": "4.0.4",
           "FirebaseStorage.net": "1.0.3",
+          "Octane.Xam.VideoPlayer": "3.1.0",
           "Plugin.MediaManager": "0.9.7",
           "Plugin.MediaManager.Forms": "0.9.7",
           "Xam.Plugin.Media": "4.0.1.5",
@@ -1876,6 +1891,31 @@
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "newtonsoft.json.11.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec"
+      ]
+    },
+    "Octane.Xam.VideoPlayer/3.1.0": {
+      "sha512": "JFjIeDBrmv1cX8B/N7vuaz2DM75hxufRbfPQVoVNkjp+j/9964lwcIyY6tfZwS3OW2INoPih6snjXG+PdlM6aw==",
+      "type": "package",
+      "path": "octane.xam.videoplayer/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.Android.dll",
+        "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.Android.xml",
+        "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.dll",
+        "lib/MonoAndroid81/Octane.Xamarin.Forms.VideoPlayer.xml",
+        "lib/Xamarin.iOS10/Octane.Xamarin.Forms.VideoPlayer.dll",
+        "lib/Xamarin.iOS10/Octane.Xamarin.Forms.VideoPlayer.iOS.dll",
+        "lib/Xamarin.iOS10/Octane.Xamarin.Forms.VideoPlayer.iOS.xml",
+        "lib/Xamarin.iOS10/Octane.Xamarin.Forms.VideoPlayer.xml",
+        "lib/netstandard2.0/Octane.Xamarin.Forms.VideoPlayer.dll",
+        "lib/netstandard2.0/Octane.Xamarin.Forms.VideoPlayer.xml",
+        "lib/uap10.0/Octane.Xamarin.Forms.VideoPlayer.UWP.dll",
+        "lib/uap10.0/Octane.Xamarin.Forms.VideoPlayer.UWP.xml",
+        "lib/uap10.0/Octane.Xamarin.Forms.VideoPlayer.dll",
+        "lib/uap10.0/Octane.Xamarin.Forms.VideoPlayer.xml",
+        "octane.xam.videoplayer.3.1.0.nupkg.sha512",
+        "octane.xam.videoplayer.nuspec"
       ]
     },
     "Plugin.CurrentActivity/2.1.0.4": {
@@ -5954,6 +5994,7 @@
       "FirebaseAdmin >= 1.9.1",
       "FirebaseDatabase.net >= 4.0.4",
       "FirebaseStorage.net >= 1.0.3",
+      "Octane.Xam.VideoPlayer >= 3.1.0",
       "Plugin.CurrentActivity >= 2.1.0.4",
       "Plugin.MediaManager >= 0.9.7",
       "Plugin.MediaManager.Forms >= 0.9.7",
@@ -6023,6 +6064,10 @@
           "FirebaseStorage.net": {
             "target": "Package",
             "version": "[1.0.3, )"
+          },
+          "Octane.Xam.VideoPlayer": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "Plugin.CurrentActivity": {
             "target": "Package",

@@ -355,12 +355,12 @@ namespace csharpcorner.ViewModels
             }
         }
 
-        //Get user's files downloadurl objects
+        //Get user's image objects
         public static async Task<List<ImageObject>> GetUsersImageObject(Guid userid)
         {
-            var allFilesDownloadURLObjects = await GetAllImageObjects();
+            var allImageObjects = await GetAllImageObjects();
             List<ImageObject> usersImageObjects = new List<ImageObject>();
-            foreach (var a in allFilesDownloadURLObjects)
+            foreach (var a in allImageObjects)
             {
                 if (a.Userid == userid)
                 {
@@ -392,6 +392,50 @@ namespace csharpcorner.ViewModels
                 return null;
             }
         }
+
+
+
+        //Get user's video objects
+        public static async Task<List<VideoObject>> GetUsersVideoObject(Guid userid)
+        {
+            var allVideoObjects = await GetAllVideoObjects();
+            List<VideoObject> usersVideoObjects = new List<VideoObject>();
+            foreach (var a in allVideoObjects)
+            {
+                if (a.Userid == userid)
+                {
+                    usersVideoObjects.Add(a);
+                }
+            }
+            return usersVideoObjects;
+        }
+
+        //Get all video objects
+        public static async Task<List<VideoObject>> GetAllVideoObjects()
+        {
+            try
+            {
+                var listOfAllVideoObjects = (await firebaseDatabase
+                .Child("VideoURLs")
+                .OnceAsync<VideoObject>()).Select(item =>
+                new VideoObject
+                {
+                    FileName = item.Object.FileName,
+                    Url = item.Object.Url,
+                    Userid = item.Object.Userid
+                }).ToList();
+                return listOfAllVideoObjects;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error:{e}");
+                return null;
+            }
+        }
+
+
+
+
 
         // Delete image
         public static async Task DeleteImage(string fileName, Guid userid)

@@ -104,7 +104,7 @@ namespace csharpcorner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await App.Current.MainPage.DisplayAlert("Encryption Error", "Error: " + ex.Message, "Ok");
+                    await App.Current.MainPage.DisplayAlert("Encryption Error", "Please try again", "Ok");
                 }
                 finally
                 {
@@ -138,6 +138,7 @@ namespace csharpcorner.ViewModels
                 if (_file == null)
                     return;
 
+                //set image preview source
                 ImagePreview = ImageSource.FromStream(() =>
                 {
                     var imageStream = _file.GetStream();
@@ -149,7 +150,7 @@ namespace csharpcorner.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                await App.Current.MainPage.DisplayAlert("Error picking image", "Please try again", "Ok");
             }
         }
 
@@ -190,8 +191,11 @@ namespace csharpcorner.ViewModels
                     await FirebaseHelper.UploadImageURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user.UserID);
 
                     //delete encrypted file we create on device
-                    System.IO.File.Delete(outputPath);
-
+                    if (File.Exists(outputPath))
+                    {
+                        File.Delete(outputPath);
+                    }
+                    
                     //stop activity indicator
                     ActivityIndicator = false;
 
@@ -208,13 +212,8 @@ namespace csharpcorner.ViewModels
                     ActivityIndicator = false;
                     BtnPickImage = true;
                     BtnUploadImage = false;
-                }
-                
-
-               
+                }       
             }
         }
-
-
     }
 }

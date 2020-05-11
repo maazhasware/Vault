@@ -29,6 +29,5 @@ namespace csharpcorner
         {
             // Handle when your app resumes
         }
-
     }
 }

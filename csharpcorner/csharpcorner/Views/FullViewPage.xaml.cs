@@ -22,10 +22,24 @@ namespace csharpcorner.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FullView : ContentPage
     {
-        public FullView(ImageObject downloadUrl, string email)
+        public FullView(ImageObject imageObject, string email)
         {
             InitializeComponent();
-            BindingContext = new FullViewVM(downloadUrl, email);
+            BindingContext = new FullViewVM(imageObject, email);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            //Messaging centre sends message
+            MessagingCenter.Send<FullView>(this, "LoadPage");
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            //Messaging centre sends message to check download button state
+            MessagingCenter.Send<FullView>(this, "BackButtonPressed");
         }
 
     }

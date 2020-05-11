@@ -12,60 +12,70 @@ namespace csharpcorner.ViewModels
     public class SignUpVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private string _firstname;
+        private string _surname;
+        private string _email;
+        private string _password;
+        private string _confirmpassword;
 
-        private string firstname;
+        public SignUpVM()
+        {
+
+        }
+
+    
         public string Firstname
         {
-            get { return firstname; }
+            get { return _firstname; }
             set
             {
-                firstname = value;
+                _firstname = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Firstname"));
 
             }
         }
 
-        private string surname;
+        
         public string Surname
         {
-            get { return surname; }
+            get { return _surname; }
             set
             {
-                surname = value;
+                _surname = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Surname"));
 
             }
         }
 
-        private string email;
+        
         public string Email
         {
-            get { return email; }
+            get { return _email; }
             set
             {
-                email = value;
+                _email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
 
-        private string password;
+        
         public string Password
         {
-            get { return password; }
+            get { return _password; }
             set
             {
-                password = value;
+                _password = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
 
-        private string confirmpassword;
+       
         public string ConfirmPassword
         {
-            get { return confirmpassword; }
+            get { return _confirmpassword; }
             set
             {
-                confirmpassword = value;
+                _confirmpassword = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("ConfirmPassword"));
             }
         }
@@ -74,10 +84,7 @@ namespace csharpcorner.ViewModels
         {
             get
             {
-                return new Command(() =>
-                {
-                        Cancel();
-                });
+                return new Command(Cancel);
             }
         }
 
@@ -95,21 +102,20 @@ namespace csharpcorner.ViewModels
                     if (Password == ConfirmPassword)
                         SignUp();
                     else
-                        App.Current.MainPage.DisplayAlert("", "Password must be same as above!", "OK");
+                        App.Current.MainPage.DisplayAlert("Passwords not matching", "Password and Confirm Password must match", "OK");
                 });
             }
         }
 
         private async void SignUp()
         {
-            //null or empty field validation, check weather email and password is null or empty    
-
             if (string.IsNullOrEmpty(Email) ||
                 string.IsNullOrEmpty(Password) ||
+                string.IsNullOrEmpty(ConfirmPassword)||
                 string.IsNullOrEmpty(Firstname) ||
                 string.IsNullOrEmpty(Surname))
             {
-                await App.Current.MainPage.DisplayAlert("Empty Values", "Please enter information in all fields", "OK");
+                await App.Current.MainPage.DisplayAlert("Empty Fields", "Please enter information in all fields", "OK");
 
             }
             else
@@ -132,17 +138,16 @@ namespace csharpcorner.ViewModels
                         string hashedPassword = string.Empty;
                         hashedPassword = HashPassword(Password);
 
-                        //call AddUser function which we define in Firebase helper class
+                        //add user to database
                         var user = await FirebaseHelper.AddUser(Firstname, Surname, Email, hashedPassword);
-                        //AddUser returns true if data is inserted successfuly     
+                        //AddUser returns true if data is inserted successfuly
                         if (!user)
                         {
                             await App.Current.MainPage.DisplayAlert("Error", "SignUp Fail", "OK");
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert("SignUp Success", "", "Ok");
-                            //await App.Current.MainPage.Navigation.PushAsync(new WelcomePage(Email, Password));
+                            await App.Current.MainPage.DisplayAlert("SignUp Success", "Welcome to your Vault " + _firstname , "Ok");
                             App.Current.MainPage = new NavigationPage( new WelcomePage(Email));
                         }
                     }

@@ -64,7 +64,7 @@ namespace csharpcorner.ViewModels
         }
 
         //view all videos command
-        public Command ViewAlVideosCommand
+        public Command ViewAllVideosCommand
         {
             get
             {
@@ -74,7 +74,7 @@ namespace csharpcorner.ViewModels
 
         private async void ViewAllVideos()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new ListViewPage(_email)); //TODO: create listview for videos page
+            await App.Current.MainPage.Navigation.PushAsync(new ListViewVideoPage(_email));
         }
 
         //settings command
@@ -103,7 +103,7 @@ namespace csharpcorner.ViewModels
 
         private async void Logout()
         {
-            App.Current.MainPage = new LoginPage();
+            App.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
 

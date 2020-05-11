@@ -13,12 +13,14 @@ namespace csharpcorner.ViewModels
 {
     public class UploadVideoVM : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private string _source;
         private string _email;
         private MediaFile _file;
         private bool _activityIndicator = false;
         private bool _btnPickVideo = true;
         private bool _btnUploadVideo = false;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public UploadVideoVM(string email)
         {
             this._email = email;
@@ -55,6 +57,15 @@ namespace csharpcorner.ViewModels
             }
         }
 
+        public string Source
+        {
+            get { return _source; }
+            set
+            {
+                _source = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Source"));
+            }
+        }
 
 
         private async void FileEncrypt(string inputFile)
@@ -93,7 +104,7 @@ namespace csharpcorner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await App.Current.MainPage.DisplayAlert("Encryption Error", "Error encrypting video: " + ex.Message + " Please try again", "Ok");
+                    await App.Current.MainPage.DisplayAlert("Encryption Error", " Please try again", "Ok");
                 }
                 finally
                 {
@@ -103,7 +114,7 @@ namespace csharpcorner.ViewModels
             }
             catch (Exception e)
             {
-                await App.Current.MainPage.DisplayAlert("Encryption Failed", "Error encrypting video:" + e.Message + "Please try again", "Ok");
+                await App.Current.MainPage.DisplayAlert("Encryption Failed", "Please try again", "Ok");
             }
 
             string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMovies).AbsolutePath;
@@ -111,19 +122,23 @@ namespace csharpcorner.ViewModels
 
             var user1 = await FirebaseHelper.GetUser(_email);
 
-            FileStream filestream = System.IO.File.OpenRead(outputPath1);
+            FileStream filestream = File.OpenRead(outputPath1);
 
             await FirebaseHelper.UploadVideo(filestream, Path.GetFileName(_file.Path), user1.UserID);
             var downloadurl = await FirebaseHelper.GetVideo(Path.GetFileName(_file.Path), user1.UserID);
             await FirebaseHelper.UploadVideoURL(Path.GetFileName(_file.Path), downloadurl.ToString(), user1.UserID);
 
             //delete encrypted file we create on device
-            System.IO.File.Delete(outputPath1);
+            if (File.Exists(outputPath1))
+            {
+                File.Delete(outputPath1);
+            }
 
             //stop activity indicator
             ActivityIndicator = false;
 
             await App.Current.MainPage.DisplayAlert("Upload Success", "Video has been uploaded", "OK");
+            Source = "";
 
             //re-enable PickImage button
             BtnPickVideo = true;
@@ -147,6 +162,7 @@ namespace csharpcorner.ViewModels
                 if (_file == null)
                     return;
                 //set video preview here
+                Source = _file.AlbumPath;
 
                 //set Upload Video button enabled
                 BtnUploadVideo = true;

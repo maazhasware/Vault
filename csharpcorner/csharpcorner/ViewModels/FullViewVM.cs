@@ -1,5 +1,6 @@
 ﻿using Android.Media;
 using csharpcorner.Models;
+using csharpcorner.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +15,12 @@ namespace csharpcorner.ViewModels
 {
     public class FullViewVM:INotifyPropertyChanged
     {
+        private string _outputPathForDecryptedFile = string.Empty;
+        private bool _btnDownloadClicked = false;
+        private string _galleryPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
         private bool _btnDelete = true;
         private bool _btnDownload = true;
         private bool _activityIndicator;
-        private string _outputPath = string.Empty;
         private ImageSource _imageView = string.Empty;
         private string _email;
         private ImageObject _imageObject;
@@ -27,7 +30,18 @@ namespace csharpcorner.ViewModels
         {
             this._email = email;
             this._imageObject = imageObject;
-            Download();
+            //Subscribe to event from FullViewPage OnAppearing override method to load page then image => appears as better performance
+            MessagingCenter.Subscribe<FullView>(this, "LoadPage", (sender) =>
+            {
+                Download();
+            });
+            //Subscribe to event from FullViewPage OnDisappearing override method to check download button state
+            MessagingCenter.Subscribe<FullView>(this, "BackButtonPressed", (sender)=>
+            {
+                //check to see if download button clicked, delete image if not clicked
+                CheckDownloadButtonState();
+            });
+           
         }
 
         public bool BtnDownload
@@ -72,91 +86,135 @@ namespace csharpcorner.ViewModels
 
         private async void FileDecrypt(string inputFile, string outputFile)
         {
-            var user = await FirebaseHelper.GetUser(_email);
-            FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
-            fsCrypt.Read(user.Salt, 0, user.Salt.Length);
-            RijndaelManaged AES = new RijndaelManaged();
-            AES.KeySize = 256;
-            AES.BlockSize = 128;
-            AES.Padding = PaddingMode.PKCS7;
-            var key = new Rfc2898DeriveBytes(user.Key, user.Salt, 50000);
-            AES.Key = key.GetBytes(AES.KeySize / 8);
-            AES.IV = key.GetBytes(AES.BlockSize / 8);
-            AES.Mode = CipherMode.CFB;
-            CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateDecryptor(), CryptoStreamMode.Read);
-            FileStream fsOut = new FileStream(outputFile, FileMode.Create);
-            int read;
-            byte[] buffer = new byte[1048576];
             try
             {
-                while ((read = cs.Read(buffer, 0, buffer.Length)) > 0)
+                var user = await FirebaseHelper.GetUser(_email);
+                FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+                fsCrypt.Read(user.Salt, 0, user.Salt.Length);
+                RijndaelManaged AES = new RijndaelManaged();
+                AES.KeySize = 256;
+                AES.BlockSize = 128;
+                AES.Padding = PaddingMode.PKCS7;
+                var key = new Rfc2898DeriveBytes(user.Key, user.Salt, 50000);
+                AES.Key = key.GetBytes(AES.KeySize / 8);
+                AES.IV = key.GetBytes(AES.BlockSize / 8);
+                AES.Mode = CipherMode.CFB;
+                CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateDecryptor(), CryptoStreamMode.Read);
+                FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+                int read;
+                byte[] buffer = new byte[1048576];
+                try
                 {
-                    fsOut.Write(buffer, 0, read);
+                    while ((read = cs.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        fsOut.Write(buffer, 0, read);
+                    }
                 }
-            }
-            catch (CryptographicException ex_CryptographicException)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "CryptographicException error: " + ex_CryptographicException.Message, "Ok");
-            }
-            catch (Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Error: " + ex.Message, "Ok");
-            }
-            try
-            {
-                cs.Close();
-            }
-            catch (Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Error by closing CryptoStream: " + ex.Message, "Ok");
-            }
-            finally
-            {
-                fsOut.Close();
-                fsCrypt.Close();
-            }
+                catch (CryptographicException ex_CryptographicException)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Decryption error, please try again ", "Ok");
+                    await App.Current.MainPage.Navigation.PopAsync();
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Decryption error, please try again" , "Ok");
+                    await App.Current.MainPage.Navigation.PopAsync();
+                }
+                try
+                {
+                    cs.Close();
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Decryption error, please try again ", "Ok");
+                    await App.Current.MainPage.Navigation.PopAsync();
+                }
+                finally
+                {
+                    fsOut.Close();
+                    fsCrypt.Close();
+                }
 
-            //added bit
-            string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _imageObject.FileName);
-            _outputPath = outputPath1;
+                //to show pics in users gallery
+                MediaScannerConnection.ScanFile(Android.App.Application.Context, new string[] { outputFile }, new string[] { "image / jpg", "image/ png", "image /jpeg" }, null);
 
-            //to show pics in gallery
-            MediaScannerConnection.ScanFile(Android.App.Application.Context, new string[] { _outputPath }, new string[] { "image / jpg", "image/ png", "image /jpeg" }, null);
+                //display image in image preview
+                ImageView = ImageSource.FromFile(outputFile);
 
-            //display image in image preview
-            ImageView = ImageSource.FromFile(_outputPath);
+                //delete encrypted file we downloaded before
+                if (File.Exists(inputFile))
+                {
+                    File.Delete(inputFile);
+                }
 
-            //delete extra file we downloaded
-            File.Delete(inputFile);
+                ActivityIndicator = false;
+                BtnDownload = true;
+                BtnDelete = true;
+            }
+            catch
+            {
+                await App.Current.MainPage.DisplayAlert("Decryption Error", "Please try again", "Ok");
+                await App.Current.MainPage.Navigation.PopAsync();
+            }
         }
 
         private async void Download()
         {
-            //output path for encrypted file
-            string galleryPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string filename = _imageObject.FileName;
-            //remove file extension
-            int index = filename.LastIndexOf(".");
-            if (index > 0)
+            try
             {
-                filename = filename.Substring(0, index);
+                ActivityIndicator = true;
+                BtnDownload = false;
+                BtnDelete = false;
+
+                //creating output path for encrypted file without file extension
+                string filename = _imageObject.FileName;
+                int index = filename.LastIndexOf(".");
+                if (index > 0)
+                {
+                    filename = filename.Substring(0, index);
+                }
+                string outputPathForEncryptedFile = Path.Combine(_galleryPath + "/Vault/", filename);
+
+                //download encyrpted file
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(_imageObject.Url, outputPathForEncryptedFile);
+                }
+
+                //output path for decrypted file
+                string outputPathForDecryptedFile = Path.Combine(_galleryPath + "/Vault/", _imageObject.FileName);
+                _outputPathForDecryptedFile = outputPathForDecryptedFile;
+
+                //if file already exists, no need to fetch from storage and decrypt => saves time
+                if (File.Exists(_outputPathForDecryptedFile))
+                {
+                    ImageView = ImageSource.FromFile(_outputPathForDecryptedFile);
+                    ActivityIndicator = false;
+                    BtnDownload = true;
+                    BtnDelete = true;
+                    return;
+                }
+
+                //decrypt and download file
+                FileDecrypt(outputPathForEncryptedFile, outputPathForDecryptedFile);
             }
-            string outputPath = Path.Combine(galleryPath + "/Vault/", filename);
-            //download encyrpted file
-            using (var client = new WebClient())
+            catch
             {
-                client.DownloadFile(_imageObject.Url, outputPath);
+                await App.Current.MainPage.DisplayAlert("Preview Error", "Please try again", "Ok");
+                await App.Current.MainPage.Navigation.PopAsync();
             }
-
-            //output path for decrypted file
-            string galleryPath1 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
-            string outputPath1 = Path.Combine(galleryPath1 + "/Vault/", _imageObject.FileName);
-
-            //decrypt and download file
-            FileDecrypt(outputPath, outputPath1);
+            
+           
         }
 
+        //delete image if download button not clicked
+        private async void CheckDownloadButtonState()
+        {
+            if (_btnDownloadClicked == false)
+            {
+                File.Delete(_outputPathForDecryptedFile);
+            }
+        }
 
         public Command BtnDownloadCommand
         {
@@ -168,6 +226,7 @@ namespace csharpcorner.ViewModels
 
         private async void BtnDownloadClicked()
         {
+            _btnDownloadClicked = true;
             await App.Current.MainPage.DisplayAlert("Success", "Image saved to gallery", "OK");
         }
 
@@ -191,12 +250,12 @@ namespace csharpcorner.ViewModels
                 ActivityIndicator= false;
                 //Message centre sends a message to ListViewPage telling it to refresh the list view so that the deleted file isn't shown in list view anymore
                 MessagingCenter.Send<FullViewVM>(this, "RefreshPage");
-                await App.Current.MainPage.DisplayAlert("Success", "Deleted", "OK");
+                await App.Current.MainPage.DisplayAlert("Success", "File was deleted", "OK");
                 await App.Current.MainPage.Navigation.PopAsync();
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Error deleting the file", "OK");
+                await App.Current.MainPage.DisplayAlert("Error deleting file", "Please try again", "OK");
             }
         }
 

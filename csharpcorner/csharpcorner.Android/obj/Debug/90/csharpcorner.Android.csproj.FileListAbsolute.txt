@@ -71,6 +71,7 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\System.Runtime.S
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\System.ServiceModel.Internals.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\System.Web.Services.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\Mono.Security.pdb
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\csharpcorner.dll.mdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\csharpcorner.Android.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\FormsViewGroup.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\Google.Api.Gax.pdb
@@ -100,7 +101,6 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\Syste
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\System.ServiceModel.Internals.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\System.Web.Services.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\Mono.Security.pdb
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\csharpcorner.dll.mdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\csharpcorner.dll.mdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\assets\csharpcorner.dll.mdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\assets\csharpcorner.Android.pdb

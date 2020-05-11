@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
 using MediaManager;
+using Octane.Xamarin.Forms.VideoPlayer.Android;
 
 namespace csharpcorner.Droid
 {
@@ -22,6 +23,7 @@ namespace csharpcorner.Droid
             base.OnCreate(savedInstanceState);
             //CrossMediaManager.Current.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            FormsVideoPlayer.Init();
             LoadApplication(new App());
         }
 

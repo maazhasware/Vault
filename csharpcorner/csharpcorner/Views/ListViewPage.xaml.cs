@@ -24,11 +24,6 @@ namespace csharpcorner.Views
             
         }
 
-        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ImageObject selectedItem = e.SelectedItem as ImageObject;
-        }
-
         void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
         {
             ImageObject tappedItem = e.Item as ImageObject;

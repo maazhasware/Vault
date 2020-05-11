@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:forms="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
+             xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
              x:Class="csharpcorner.Views.UploadVideoPage"
              BackgroundImage="NewBackground.png"
              Title="Upload Video">
@@ -10,9 +10,11 @@
             <StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                     <Frame OutlineColor="Red">
-                        <!--<forms:VideoView HeightRequest="300" WidthRequest="300"/> -->
+                        <o:VideoPlayer Source="{Binding Source}" 
+                                       DisplayControls="True"
+                                       AutoPlay="True"
+                                       Repeat="True"/>
                     </Frame>
-                    <!--<Button x:Name="PlayStopButtonText" Text="Play" Clicked="PlayStopButton" TextColor="BlueViolet"/> -->
                     <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                         <Button x:Name="btnPickVideo" WidthRequest="150" Text="Pick Video" Command="{Binding BtnPickVideoClicked}" IsEnabled="{Binding BtnPickVideo}"/>

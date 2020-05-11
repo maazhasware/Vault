@@ -10,6 +10,7 @@ namespace csharpcorner.ViewModels
 {
     public class LoginVM : INotifyPropertyChanged
     {
+        private bool _activityIndicator;
         private string _email;
         private string _password;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -38,6 +39,17 @@ namespace csharpcorner.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
+
+        public bool ActivityIndicator
+        {
+            get { return _activityIndicator; }
+            set
+            {
+                _activityIndicator = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ActivityIndicator"));
+            }
+        }
+
         public Command LoginCommand
         {
             get
@@ -48,18 +60,18 @@ namespace csharpcorner.ViewModels
 
         private async void Login()
         {
-            //null or empty field validation, check weather email and password is null or empty    
+            ActivityIndicator = true;
 
+            //check if email or password fields are null or empty
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Empty Values", "Please enter Email and Password", "OK");
-
+                ActivityIndicator = false;
+                await App.Current.MainPage.DisplayAlert("Empty Fields", "Email and Password field cannot be empty", "OK");
             }
             else
             {
-                //call GetUser function which we define in Firebase helper class    
+                //call GetUser function from FirebaseHelper class    
                 var user = await FirebaseHelper.GetUser(Email);
-                //firebase return null valuse if user data not found in database    
                 if (user != null)
                 { 
                     //get stored hashed password
@@ -82,25 +94,38 @@ namespace csharpcorner.ViewModels
                     }
 
                     if (Email == user.Email && passwordMatches == true)
-                        {
-                            await App.Current.MainPage.DisplayAlert("Login Success", "", "Ok");
-                            //Navigate to welcome page after successful login    
-                            //pass user email to welcome page
-                            App.Current.MainPage = new NavigationPage(new WelcomePage(Email));
-
-                        }
-                        else
-                        {
-                            await App.Current.MainPage.DisplayAlert("Login Fail", "Please enter correct Email and Password", "OK");
-
-                        }
+                    {
+                        ActivityIndicator = false;
+                        await App.Current.MainPage.DisplayAlert("Login Successful", "Welcome to your Vault " + user.FirstName , "Ok");
+                        //set welcome page as new navigation page instead of navigating to it so user can't press back button to come back to login page    
+                        App.Current.MainPage = new NavigationPage(new WelcomePage(Email));
+                    }
+                    else
+                    {
+                        ActivityIndicator = false;
+                        await App.Current.MainPage.DisplayAlert("Login Failed", "Please enter correct password", "OK");
+                    }
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Login Fail", "Invalid user credentials", "OK");
+                    ActivityIndicator = false;
+                    await App.Current.MainPage.DisplayAlert("Login Failed", "Please enter correct email address", "OK");
 
                 }
             }
+        }
+
+        public Command ForgotPasswordCommand
+        {
+            get
+            {
+                return new Command(ForgotPassword);
+            }
+        }
+
+        private async void ForgotPassword()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new ForgotPasswordPage());
         }
 
         public Command RegisterCommand

@@ -13,6 +13,8 @@ LiteDB
 MediaManager
 MediaManager.Forms
 Newtonsoft.Json
+Octane.Xamarin.Forms.VideoPlayer.Android
+Octane.Xamarin.Forms.VideoPlayer
 Plugin.CurrentActivity
 Plugin.Media
 Plugin.Permissions
