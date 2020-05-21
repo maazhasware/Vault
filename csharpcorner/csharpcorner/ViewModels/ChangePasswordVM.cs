@@ -31,7 +31,7 @@ namespace csharpcorner.ViewModels
 
         public string PasswordConfirmation
         {
-            get { return _password; }
+            get { return _passwordConfirmation; }
             set
             {
                 _passwordConfirmation = value;

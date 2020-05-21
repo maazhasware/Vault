@@ -138,7 +138,7 @@ namespace csharpcorner.ViewModels
             ActivityIndicator = false;
 
             await App.Current.MainPage.DisplayAlert("Upload Success", "Video has been uploaded", "OK");
-            Source = "";
+            Source = string.Empty;
 
             //re-enable PickImage button
             BtnPickVideo = true;
@@ -217,6 +217,10 @@ namespace csharpcorner.ViewModels
             catch (Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Upload Failed", "Please try again", "Ok");
+                Source = string.Empty;
+                ActivityIndicator = false;
+                BtnPickVideo = true;
+                BtnUploadVideo= false;
             }
         }
 

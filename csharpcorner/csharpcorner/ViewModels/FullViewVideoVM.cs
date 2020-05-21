@@ -188,6 +188,7 @@ namespace csharpcorner.ViewModels
                 if (File.Exists(_outputPathForDecryptedFile))
                 {
                     //add preview video source here
+                    Source = _outputPathForDecryptedFile;
                     ActivityIndicator = false;
                     BtnDownload = true;
                     BtnDelete = true;
@@ -196,6 +197,7 @@ namespace csharpcorner.ViewModels
 
                 //decrypt and download file
                 FileDecrypt(outputPathForEncryptedFile, outputPathForDecryptedFile);
+                return;
             }
             catch
             {
@@ -243,8 +245,8 @@ namespace csharpcorner.ViewModels
                 BtnDelete = false;
                 BtnDownload = false;
                 ActivityIndicator = true;
-                await FirebaseHelper.DeleteImage(_videoObject.FileName, _videoObject.Userid);
-                await FirebaseHelper.DeleteImageObject(_videoObject.FileName, _videoObject.Userid);
+                await FirebaseHelper.DeleteVideo(_videoObject.FileName, _videoObject.Userid);
+                await FirebaseHelper.DeleteVideoObject(_videoObject.FileName, _videoObject.Userid);
                 ActivityIndicator = false;
                 //Message centre sends a message to ListViewPage telling it to refresh the list view so that the deleted file isn't shown in list view anymore
                 MessagingCenter.Send<FullViewVideoVM>(this, "RefreshPage");
@@ -254,6 +256,9 @@ namespace csharpcorner.ViewModels
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Error deleting the video", "OK");
+                ActivityIndicator = false;
+                BtnDelete = true;
+                BtnDownload = true;
             }
         }
 

@@ -182,7 +182,7 @@ namespace csharpcorner.ViewModels
         //***MEDIA RELATED METHODS BELOW***
 
 
-        //Upload file to firebase storage
+        //Upload image 
         public static async Task<string> UploadImage(FileStream fileStream, string fileName, Guid userid)
         {
             try
@@ -256,11 +256,11 @@ namespace csharpcorner.ViewModels
                     //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
                     try
                     {
-                        var imageurl = await firebaseStorage
+                        var videourl = await firebaseStorage
                         .Child("Videos")
                         .Child(fileName + Guid.NewGuid() + userid)
                         .PutAsync(fileStream);
-                        return imageurl;
+                        return videourl;
                     }
                     catch (Exception e)
                     {
@@ -307,7 +307,7 @@ namespace csharpcorner.ViewModels
             {
                 await firebaseDatabase
                 .Child("VideoURLs")
-                .PostAsync(new ImageObject()
+                .PostAsync(new VideoObject()
                 {
                     FileName = fileName,
                     Url = downloadurl,
@@ -322,7 +322,7 @@ namespace csharpcorner.ViewModels
             }
         }
 
-        // Get a file using file name
+        // Get image using file name
         public static async Task<string> GetImage(string fileName, Guid userid)
         {
             try
@@ -481,7 +481,7 @@ namespace csharpcorner.ViewModels
             {
                 var toDeleteObject = (await firebaseDatabase
                 .Child("VideoURLs")
-                .OnceAsync<ImageObject>()).Where(a => a.Object.FileName == fileName && a.Object.Userid == userid).FirstOrDefault();
+                .OnceAsync<VideoObject>()).Where(a => a.Object.FileName == fileName && a.Object.Userid == userid).FirstOrDefault();
                 await firebaseDatabase.Child("VideoURLs").Child(toDeleteObject.Key).DeleteAsync();
             }
             catch (Exception e)

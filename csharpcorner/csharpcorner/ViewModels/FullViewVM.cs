@@ -151,7 +151,7 @@ namespace csharpcorner.ViewModels
                 BtnDownload = true;
                 BtnDelete = true;
             }
-            catch
+            catch (Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Decryption Error", "Please try again", "Ok");
                 await App.Current.MainPage.Navigation.PopAsync();
@@ -198,7 +198,7 @@ namespace csharpcorner.ViewModels
                 //decrypt and download file
                 FileDecrypt(outputPathForEncryptedFile, outputPathForDecryptedFile);
             }
-            catch
+            catch (Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Preview Error", "Please try again", "Ok");
                 await App.Current.MainPage.Navigation.PopAsync();
@@ -256,6 +256,9 @@ namespace csharpcorner.ViewModels
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error deleting file", "Please try again", "OK");
+                ActivityIndicator = false;
+                BtnDelete = true;
+                BtnDownload = true;
             }
         }
 
