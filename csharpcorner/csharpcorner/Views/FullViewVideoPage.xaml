@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
              x:Class="csharpcorner.Views.FullViewVideoPage"
-             BackgroundImage="NewBackground.png"
              Title="Video Preview">
     <ContentPage.Content>
         <StackLayout Margin="20, 20, 20, 20">
@@ -17,8 +16,8 @@
                     </Frame>
                     <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Button x:Name="btnDownload" WidthRequest="150" Text="Download" Command="{Binding BtnDownloadCommand}" IsEnabled="{Binding BtnDownload}"/>
-                        <Button x:Name="btnDelete" WidthRequest="150" Text="Delete" Command="{Binding BtnDeleteCommand}" IsEnabled="{Binding BtnDelete}"/>
+                        <Button x:Name="btnDownload" WidthRequest="150" Text="Download" BackgroundColor="#1e1e1f" TextColor="White" Command="{Binding BtnDownloadCommand}" IsEnabled="{Binding BtnDownload}"/>
+                        <Button x:Name="btnDelete" WidthRequest="150" Text="Delete" BackgroundColor="#1e1e1f" TextColor="White" Command="{Binding BtnDeleteCommand}" IsEnabled="{Binding BtnDelete}"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

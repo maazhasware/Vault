@@ -2,19 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="csharpcorner.Views.UploadImagePage"
-             BackgroundImage="NewBackground.png"
              Title="Upload Image">
     <ContentPage.Content>
         <StackLayout Margin="20,20,20,20">
             <StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                     <Frame OutlineColor="Red">
-                        <Image x:Name="ImagePreview" BackgroundColor="DarkGray" HeightRequest="300" WidthRequest="300" Source="{Binding ImagePreview}" ></Image>
+                        <Image x:Name="ImagePreview" BackgroundColor="#1e1e1f" HeightRequest="300" WidthRequest="300" Source="{Binding ImagePreview}" ></Image>
                     </Frame>
                     <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Button x:Name="btnPickImage" WidthRequest="150" Text="Pick Image" Command="{Binding PickImageCommand}" IsEnabled="{Binding BtnPickImage}"/>
-                        <Button x:Name="btnUploadImage" WidthRequest="150" Text="Upload Image" Command="{Binding UploadImageCommand}" IsEnabled="{Binding BtnUploadImage}"/>
+                        <Button x:Name="btnPickImage" WidthRequest="150" Text="Pick Image" BackgroundColor="#1e1e1f" TextColor="White" Command="{Binding PickImageCommand}" IsEnabled="{Binding BtnPickImage}"/>
+                        <Button x:Name="btnUploadImage" WidthRequest="150" Text="Upload Image" BackgroundColor="#1e1e1f" TextColor="White" Command="{Binding UploadImageCommand}" IsEnabled="{Binding BtnUploadImage}"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

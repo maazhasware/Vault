@@ -2,20 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="csharpcorner.Views.SignUpPage"
-             BackgroundImage="NewBackground.png"
              Title="Sign Up">
     <ContentPage.Content>
         <StackLayout Margin="20,20,20,20">
-            <StackLayout Padding="10, 10, 10, 10" Orientation="Vertical" BackgroundColor="DarkGray" Spacing="10" >
+            <StackLayout Padding="10, 10, 10, 10" Orientation="Vertical" BackgroundColor="#1e1e1f" Spacing="10" >
                 <Entry x:Name="FirstnameEntry" Placeholder="First Name" PlaceholderColor="White" Text="{Binding Firstname}" TextColor="White" HeightRequest = "40"/>
                 <Entry x:Name="SurnameEntry" Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname}" TextColor="White" HeightRequest = "40"/>
                 <Entry x:Name="EmailEntry" Placeholder="Email" PlaceholderColor="White" Text="{Binding Email}" Keyboard="Email" TextColor="White" HeightRequest = "40"/>
                 <Entry x:Name="PasswordEntry" Placeholder="Password" PlaceholderColor="White" Text="{Binding Password}" IsPassword="True" TextColor="White" HeightRequest = "40"/>
-                <Label Text="Password must be at least 8 characters, contain at least one number and have no spaces"/>
+                <Label Text="Password must be at least 8 characters, contain at least one number and have no spaces" TextColor="DarkGray"/>
                 <Entry x:Name="ConfirmPasswordEntry" Placeholder="Re_Enter Password" PlaceholderColor="White" Text="{Binding ConfirmPassword}" IsPassword="True" TextColor="White" HeightRequest = "40"/>
             </StackLayout>
-            <Button x:Name="signup" Text="SignUp" Command="{Binding SignUpCommand}" BackgroundColor="DarkGray" TextColor="White" HorizontalOptions="FillAndExpand"/>
-            <Button x:Name="cancel" Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="DarkGray" TextColor="White" HorizontalOptions="FillAndExpand"/>
+            <Button x:Name="signup" Text="SignUp" Command="{Binding SignUpCommand}" BackgroundColor="#1e1e1f" TextColor="White" HorizontalOptions="FillAndExpand"/>
+            <Button x:Name="cancel" Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="#1e1e1f" TextColor="White" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -8,7 +8,7 @@
         <StackLayout Orientation="Vertical" Padding="30" Spacing="10">
             <?BoxView HeightRequest="10"/?>
             <Image HorizontalOptions="Center" HeightRequest="200" WidthRequest="200" Source="NewLogo.png"/>
-            <Frame BackgroundColor="DarkGray" HasShadow="False">
+            <Frame BackgroundColor="#1e1e1f" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
                     <Entry x:Name = "Email" 
                    Placeholder = "Email"
@@ -39,13 +39,13 @@
             <Button x:Name= "loginbtn" 
                     Text = "Login "  
                     TextColor="White"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#1e1e1f"
                     Command="{Binding LoginCommand}"  
                     HorizontalOptions = "FillAndExpand"/>
             <Button x:Name=" registerbtn" 
                     Text="Register" 
                     TextColor="White"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#1e1e1f"
                     Command="{Binding RegisterCommand}"
                     HorizontalOptions="FillAndExpand"/>
             <ActivityIndicator x:Name ="ActivityIndicator" IsRunning="{Binding ActivityIndicator}"/>

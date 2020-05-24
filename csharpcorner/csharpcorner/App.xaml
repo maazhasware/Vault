@@ -7,8 +7,14 @@
 
             <!-- Styles -->
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="Black"/>
-                <Setter Property="BarTextColor" Value="White"/>
+                <Setter Property="BarBackgroundColor" Value="#292826"/>
+                <Setter Property="BarTextColor" Value="DarkGray"/>
+                <Setter Property="BackgroundImageSource" Value="#696969"/>
+                <Setter Property="BackgroundColor" Value="#171716"/>
+            </Style>
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundImageSource" Value="#696969"/>
+                <Setter Property="BackgroundColor" Value="#171716"/>
             </Style>
             <!-- Styles -->
 

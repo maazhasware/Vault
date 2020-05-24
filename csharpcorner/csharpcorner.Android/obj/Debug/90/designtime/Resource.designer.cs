@@ -10037,11 +10037,11 @@ namespace csharpcorner.Droid
 			// aapt resource value: 0x7F090058
 			public const int ic_dialog_close_light = 2131296344;
 			
-			// aapt resource value: 0x7F010006
-			public const int ic_fullscreen = 2130771974;
+			// aapt resource value: 0x7F010005
+			public const int ic_fullscreen = 2130771973;
 			
-			// aapt resource value: 0x7F010007
-			public const int ic_fullscreen_exit = 2130771975;
+			// aapt resource value: 0x7F010006
+			public const int ic_fullscreen_exit = 2130771974;
 			
 			// aapt resource value: 0x7F090059
 			public const int ic_group_collapse_00 = 2131296345;
@@ -10571,9 +10571,6 @@ namespace csharpcorner.Droid
 			// aapt resource value: 0x7F090105
 			public const int ic_vol_type_tv_light = 2131296517;
 			
-			// aapt resource value: 0x7F010003
-			public const int LogoIcon = 2130771971;
-			
 			// aapt resource value: 0x7F090106
 			public const int mr_button_connected_dark = 2131296518;
 			
@@ -10643,11 +10640,11 @@ namespace csharpcorner.Droid
 			// aapt resource value: 0x7F090062
 			public const int navigation_empty_icon = 2131296354;
 			
-			// aapt resource value: 0x7F010004
-			public const int NewBackground = 2130771972;
+			// aapt resource value: 0x7F010003
+			public const int NewBackground = 2130771971;
 			
-			// aapt resource value: 0x7F010005
-			public const int NewLogo = 2130771973;
+			// aapt resource value: 0x7F010004
+			public const int NewLogo = 2130771972;
 			
 			// aapt resource value: 0x7F090001
 			public const int notification_action_background = 2131296257;

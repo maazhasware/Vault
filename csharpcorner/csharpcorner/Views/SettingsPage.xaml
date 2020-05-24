@@ -2,13 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="csharpcorner.Views.SettingsPage"
-             BackgroundImage="NewBackground.png"
              Title="Settings">
     <ContentPage.Content>
         <StackLayout Margin="20,35,20,20">
             <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                 <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                    <Button x:Name="btnChangePassword" WidthRequest="200" Text="Change Password" Command="{Binding ChangePasswordCommand}"/>
+                    <Button x:Name="btnChangePassword" WidthRequest="200" Text="Change Password" BackgroundColor="#1e1e1f" TextColor="White" Command="{Binding ChangePasswordCommand}"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

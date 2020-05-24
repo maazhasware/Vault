@@ -28,15 +28,10 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\layout\to
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-anydpi-v26\icon.xml
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-anydpi-v26\icon_round.xml
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-hdpi\icon.png
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-hdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-mdpi\icon.png
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-mdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xhdpi\icon.png
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxhdpi\icon.png
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxxhdpi\icon.png
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxxhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\values\colors.xml
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\values\styles.xml
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\xml\file_paths.xml
@@ -132,6 +127,9 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\asset
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\assets\Xamarin.Forms.Core.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\assets\Xamarin.Forms.Platform.Android.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\assets\Xamarin.Forms.Xaml.pdb
-C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\csharpcorner.dll
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\csharpcorner.dll.mdb
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-hdpi\launcher_foreground.png
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-mdpi\launcher_foreground.png
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xhdpi\launcher_foreground.png
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxhdpi\launcher_foreground.png
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxxhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\csharpcorner.dll.mdb

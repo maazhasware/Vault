@@ -95,7 +95,7 @@ namespace csharpcorner.ViewModels
                             SmtpServer.Host = "smtp.gmail.com";
                             SmtpServer.EnableSsl = true;
                             SmtpServer.UseDefaultCredentials = false;
-                            SmtpServer.Credentials = new System.Net.NetworkCredential("sambuhart@gmail.com", "astonmart");//insert password when want to use
+                            SmtpServer.Credentials = new System.Net.NetworkCredential("", "");//insert creds when want to use
                             SmtpServer.Send(mail);
 
                             await App.Current.MainPage.DisplayAlert("Password reset success", "Please check your email inbox or junk folder for the email sent out to you", "Ok");

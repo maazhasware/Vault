@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="csharpcorner.Views.ListViewVideoPage"
-             BackgroundImage="NewBackground.png"
              Title="Your Videos">
     <ContentPage.Content>
         <StackLayout Margin="0,0,0,0">
@@ -15,7 +14,7 @@
                       RefreshCommand="{Binding RefreshCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
                       HasUnevenRows="true"
-                      BackgroundColor="DarkGray"
+                      BackgroundColor="#1e1e1f"
                       SeparatorColor="White"
                       ItemTapped="OnListViewItemTapped">
                     <ListView.ItemTemplate>
