@@ -21,7 +21,6 @@ namespace csharpcorner.Droid
             ToolbarResource = Resource.Layout.Toolbar;
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
-            //CrossMediaManager.Current.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsVideoPlayer.Init();
             LoadApplication(new App());

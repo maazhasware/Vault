@@ -12,7 +12,7 @@ namespace csharpcorner.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string _email;
-        private IList<VideoObject> _videoObjects;
+        private IList<VideoObject> _videosList;
         private bool _isRefreshing = false;
         public ListViewVideoVM(string email)
         {
@@ -51,20 +51,20 @@ namespace csharpcorner.ViewModels
             }
         }
 
-        public IList<VideoObject> VideoObjects
+        public IList<VideoObject> VideosList
         {
-            get { return _videoObjects; }
+            get { return _videosList; }
             set
             {
-                _videoObjects = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("VideoObjects"));
+                _videosList = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("VideosList"));
             }
         }
 
         private async void SetupListViewItems()
         {
             User user = await FirebaseHelper.GetUser(_email);
-            VideoObjects = await FirebaseHelper.GetUsersVideoObject(user.UserID);
+            VideosList = await FirebaseHelper.GetUsersVideoObjects(user.UserID);
         }
 
 

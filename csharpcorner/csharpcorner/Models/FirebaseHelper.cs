@@ -187,40 +187,12 @@ namespace csharpcorner.ViewModels
         {
             try
             {
-                var fileAlreadyExists = await GetImage(fileName, userid);
-                if (fileAlreadyExists == null)
-                {
-                    try
-                    {
-                        var imageurl = await firebaseStorage
-                        .Child("Images")
-                        .Child(fileName + userid)
-                        .PutAsync(fileStream);
-                        return imageurl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
-                else
-                {
-                    //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
-                    try
-                    {
-                        var imageurl = await firebaseStorage
-                        .Child("Images")
-                        .Child(fileName + Guid.NewGuid() + userid)
-                        .PutAsync(fileStream);
-                        return imageurl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
+                var imageurl = await firebaseStorage
+                .Child("Images")
+                .Child(fileName + userid)
+                .PutAsync(fileStream);
+                return imageurl;
+               
             }
             catch (Exception e)
             {
@@ -234,40 +206,11 @@ namespace csharpcorner.ViewModels
         {
             try
             {
-                var fileAlreadyExists = await GetVideo(fileName, userid);
-                if (fileAlreadyExists == null)
-                {
-                    try
-                    {
-                        var videourl = await firebaseStorage
-                        .Child("Videos")
-                        .Child(fileName + userid)
-                        .PutAsync(fileStream);
-                        return videourl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
-                else
-                {
-                    //below code never gets used, firebase already recognises it is duplicate and appends a number to the filename, prevents duplicates
-                    try
-                    {
-                        var videourl = await firebaseStorage
-                        .Child("Videos")
-                        .Child(fileName + Guid.NewGuid() + userid)
-                        .PutAsync(fileStream);
-                        return videourl;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine($"Error:{e}");
-                        return null;
-                    }
-                }
+                var videourl = await firebaseStorage
+                .Child("Videos")
+                .Child(fileName + userid)
+                .PutAsync(fileStream);
+                return videourl;
             }
             catch (Exception e)
             {
@@ -322,7 +265,7 @@ namespace csharpcorner.ViewModels
             }
         }
 
-        // Get image using file name
+        // Get all of users images
         public static async Task<string> GetImage(string fileName, Guid userid)
         {
             try
@@ -356,7 +299,7 @@ namespace csharpcorner.ViewModels
         }
 
         //Get user's image objects
-        public static async Task<List<ImageObject>> GetUsersImageObject(Guid userid)
+        public static async Task<List<ImageObject>> GetUsersImageObjects(Guid userid)
         {
             var allImageObjects = await GetAllImageObjects();
             List<ImageObject> usersImageObjects = new List<ImageObject>();
@@ -393,10 +336,8 @@ namespace csharpcorner.ViewModels
             }
         }
 
-
-
         //Get user's video objects
-        public static async Task<List<VideoObject>> GetUsersVideoObject(Guid userid)
+        public static async Task<List<VideoObject>> GetUsersVideoObjects(Guid userid)
         {
             var allVideoObjects = await GetAllVideoObjects();
             List<VideoObject> usersVideoObjects = new List<VideoObject>();
@@ -433,10 +374,6 @@ namespace csharpcorner.ViewModels
             }
         }
 
-
-
-
-
         // Delete image
         public static async Task DeleteImage(string fileName, Guid userid)
         {
@@ -444,7 +381,6 @@ namespace csharpcorner.ViewModels
                  .Child("Images")
                  .Child(fileName + userid)
                  .DeleteAsync();
-
         }
 
         // Delete video
@@ -454,7 +390,6 @@ namespace csharpcorner.ViewModels
                  .Child("Videos")
                  .Child(fileName + userid)
                  .DeleteAsync();
-
         }
 
         //Delete Image Object
@@ -471,7 +406,6 @@ namespace csharpcorner.ViewModels
             {
                 Debug.WriteLine($"Error:{e}");
             }
-
         }
 
         //Delete Video Object
@@ -488,12 +422,11 @@ namespace csharpcorner.ViewModels
             {
                 Debug.WriteLine($"Error:{e}");
             }
-
         }
 
 
 
-        
+
 
     }
 }

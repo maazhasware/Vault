@@ -19,8 +19,6 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\csharpcorner.
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\csharpcorner.Android.dll
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\csharpcorner.Android.pdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\android\bin\com.companyname.csharpcorner.apk
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\drawable\background.jpg
-C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\drawable\logoicon.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\drawable\newbackground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\drawable\newlogo.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\layout\tabbar.xml
@@ -132,4 +130,6 @@ C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-md
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxhdpi\launcher_foreground.png
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\res\mipmap-xxxhdpi\launcher_foreground.png
+C:\Dev\csharpcorner\csharpcorner\csharpcorner\bin\Debug\netstandard2.0\csharpcorner.dll
+C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\bin\Debug\csharpcorner.dll.mdb
 C:\Dev\csharpcorner\csharpcorner\csharpcorner.Android\obj\Debug\90\linksrc\csharpcorner.dll.mdb

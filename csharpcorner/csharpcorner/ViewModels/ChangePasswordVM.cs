@@ -50,34 +50,41 @@ namespace csharpcorner.ViewModels
         private async void Submit()
         {
             var user = await FirebaseHelper.GetUser(_email);
-            if (_password == _passwordConfirmation)
+            if (!(string.IsNullOrEmpty(_password) | string.IsNullOrEmpty(_passwordConfirmation)))
             {
-                bool PasswordValid = IsValidPassword(_password);
-
-                if (PasswordValid == true)
+                if (_password == _passwordConfirmation)
                 {
-                    string hashedPassword = string.Empty;
-                    hashedPassword = HashPassword(_password);
+                    bool PasswordValid = IsValidPassword(_password);
 
-                    try
+                    if (PasswordValid == true)
                     {
-                        await FirebaseHelper.UpdateUser(user.UserID, user.FirstName, user.Surname, user.Email, hashedPassword, user.Key, user.Salt);
-                        await App.Current.MainPage.DisplayAlert("Success", "Password has been changed", "Ok");
-                        await App.Current.MainPage.Navigation.PopAsync();
+                        string hashedPassword = string.Empty;
+                        hashedPassword = HashPassword(_password);
+
+                        try
+                        {
+                            await FirebaseHelper.UpdateUser(user.UserID, user.FirstName, user.Surname, user.Email, hashedPassword, user.Key, user.Salt);
+                            await App.Current.MainPage.DisplayAlert("Success", "Password has been changed", "Ok");
+                            await App.Current.MainPage.Navigation.PopAsync();
+                        }
+                        catch (Exception e)
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Password change failed, please try again", "Ok");
+                        }
                     }
-                    catch (Exception e) 
+                    else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Password change failed" + e.Message + " Please try again", "Ok");
+                        await App.Current.MainPage.DisplayAlert("Invalid Password", "Please enter a password in line with requirements", "OK");
                     }
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Invalid Password", "Please enter a password in line with requirements", "OK");
+                    await App.Current.MainPage.DisplayAlert("Error", "Passwords must match", "Ok");
                 }
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Passwords must match", "Ok");
+                await App.Current.MainPage.DisplayAlert("Empty Values", "Fields should not be empty", "Ok");
             }
         }
 
